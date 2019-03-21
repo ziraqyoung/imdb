@@ -1,0 +1,30 @@
+<div class="mb-3">
+  <% if user_signed_in? && @play.user_id === current_user.id %>
+    <%= link_to "Edit Play", edit_play_path(@play), class: "ml-3 btn btn-outline-info"%>
+    <%= link_to "Delete Play", play_path(@play), method: :delete, data: {confirm: "Are you Sure"}, class: "ml-3 btn btn-outline-danger"%>
+    <%= link_to "Add Review", new_play_review_path(@play.id), class: "ml-3 btn btn-outline-light" %>
+  <% end %>
+</div> <!--./mb-3 -->
+<div class="row">
+  <div class="col-sm-5">
+    <%= image_tag(@play.play_show, class: "img-fluid") %>
+  </div>
+  <div class="col-sm-7">
+    <h1><%= @play.title %></h1>
+    <span>Director </span><em class="h5 text-info mr-2"><%= @play.director %></em><span>Category </span><em class="text-warning"><%= @play.category.name %></em>
+    <p><%= @play.description %></p>
+      <hr/>
+  </div>
+</div> <!--./row -->
+<h1 class="text-center mt-3">Reviews</h1>
+<%= render @play.reviews %>
+
+<%= javascript_tag do -%>
+  $('.review-rating').raty({
+    readOnly: true,
+    score: function() {
+      return $(this).attr('data-score');
+    },
+    path: '/assets/ui'
+  });
+<% end -%>

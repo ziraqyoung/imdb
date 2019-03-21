@@ -1,0 +1,4 @@
+<h1>New Play</h1>
+<%= form_for @play, multipart: true do |f| %>
+    <%= render partial: 'form', locals: { :f => f } %>
+<% end %>

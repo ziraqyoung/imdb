@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Imdb App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head> <!--head -->
+  <body class="text-light bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-secondary fixed-top">
+      <div class="container">
+        <%= link_to "Broadway", root_path, class: "navbar-brand" %>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="navbar-nav mr-auto">
+            <div class="nav-item dropdown mr-auto">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
+              <div class="dropdown-menu">
+                <% Category.all.each do |category| %>
+                  <%= link_to category.name, plays_path(category: category.name), class: "dropdown-item #{ "active" if params[:category] == category.name } " %>
+                <% end %>
+              </div>  <!--./dropdown-menu -->
+            </div>  <!--./dropdown -->
+
+            <% if user_signed_in? %>
+                <%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "nav-item nav-link"%>
+            <% else %>
+                <%= link_to "Sign Up", new_user_registration_path, class: "nav-item nav-link"%>
+                <%= link_to "Log In", new_user_session_path, class: "nav-item nav-link"%>
+            <% end %>
+
+          </div>  <!--./navbar-nav -->
+        </div>  <!--./navbar-collapse -->
+      </div> <!--./container -->
+    </nav> <!--./nav -->
+
+    <div class="container main-content">
+      <% if flash[:notice]%>
+        <div class="alert alert-success">
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
+      <hr/>
+        <%= link_to "Back to Plays", plays_path, class: "ml-3 btn btn-outline-primary"%>
+        <% if user_signed_in? %>
+        <%= link_to "Add New Play", new_play_path, class: "btn btn-outline-secondary" %>
+        <% end %>
+        <hr/>
+    <%= yield %>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,32 @@
+<% if @play.errors.any? %>
+    <div class="alert alert-danger">
+       <%= pluralize(@play.errors.count, "error") %> prohibated this record form being saved!
+       <ul class="list-group">
+       <% @play.errors.full_messages.each do |msg| %>
+            <li class="list-group-item list-group-item-danger"><%= msg %></li>
+       <% end %>
+       </ul>
+    </div>
+<% end %>
+<div class="form-group">
+    <%= f.select :category_id, Category.all.map { |c| [c.name, c.id] }, :prompt => "Select Category", include_blank: false , class: "form-control mb-3"%>
+</div>
+<div class="form-group">
+    <%= f.label :play_img, "Play Image" %>
+    <%= f.file_field :play_img, class: "form-control-file" %>
+</div>
+<div class="form-group">
+    <%= f.label :title, "Play Title" %>
+    <%= f.text_field :title, class: "form-control" %>
+</div>
+<div class="form-group">
+    <%= f.label :description, "Play Description" %>
+    <%= f.text_area :description, rows: "5", class: "form-control" %>
+</div>
+<div class="form-group">
+    <%= f.label :director, "Play Director" %>
+    <%= f.text_field :director, class: "form-control" %>
+</div>
+<div class="form-group">
+    <%= f.submit nil, class: "btn btn-outline-success"%>
+</div>

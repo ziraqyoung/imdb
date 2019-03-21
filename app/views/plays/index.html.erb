@@ -1,0 +1,14 @@
+<% if @plays.count == 0 %>
+    <p>No plays found matching the <%= params[:category] %> category.</p>
+<% else %>
+    <div class="row">
+    <% @plays.each do |play| %>
+        <div class="col-md-3">
+            <a href="/plays/<%= play.id %>">
+            <%= image_tag play.play_index, class: "img-fluid rounded mb-3" %>
+            <p class="text-center text-white font-italic lead"><%= play.title%></p>
+            </a>
+        </div>
+    <% end %>
+    </div>
+<% end %>

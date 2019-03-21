@@ -1,0 +1,29 @@
+<% if @review.errors.any? %>
+    <div class="alert alert-danger">
+       <%= pluralize(@review.errors.count, "error") %> prohibated this record form being saved!
+       <ul class="list-group">
+       <% @review.errors.full_messages.each do |msg| %>
+            <li class="list-group-item list-group-item-danger"><%= msg %></li>
+       <% end %>
+       </ul>
+    </div>
+<% end %>
+<div id="rating-form" class="form-group">
+    <label class="sr-only">Label</label>
+</div>
+<div class="form-group">
+    <%= f.label :comment%>
+    <%= f.text_area :comment, class: "form-control" %>
+</div>
+
+<div class="form-group">
+    <%= f.submit nil, class: "btn btn-outline-light" %>
+    <%= link_to "Back to Play", play_path(@play), class: "ml-3 btn btn-outline-warning"%>
+</div>
+
+<%= javascript_tag do %>
+    $('#rating-form').raty({
+        path : '/assets/ui',
+        scoreName : 'review[rating]'
+    });
+<% end %>

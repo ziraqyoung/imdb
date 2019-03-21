@@ -1,0 +1,9 @@
+<p class="review-rating" data-score="<%= review.rating %>"></p>
+<p><%= review.comment %></p>
+  <% if user_signed_in? %>
+    <% if review.user_id == current_user.id %>
+      <%= link_to "Edit Review", edit_play_review_path(review.play, review), class: "btn btn-sm btn-outline-info" %>
+      <%= link_to "Delete Review", play_review_path(review.play, review), method: :delete, data: {confirm: "Are you sure?"}, class: "ml-3 btn btn-sm btn-outline-danger" %>
+      <hr/>
+  <% end %>
+<% end %>
